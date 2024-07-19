@@ -1,6 +1,6 @@
 # Function Plotter GUI Application
 
-This is a Python GUI application that lets users plot mathematical function of `x`. Automated test and input validation ensures the user input is correct. The GUI is built using PySide2 and the plots are generated using Matplotlib.
+This is a Python GUI application that lets users plot mathematical function of `x`. Automated testing and input validation ensures the user input is correct. The GUI is built using PySide2 and the plots are generated using Matplotlib.
 Currently supports these operators + - / * ^ log10() sqrt().
 
 ## Dependencies
