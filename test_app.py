@@ -71,7 +71,17 @@ def test_wrong_formula_input_empty_log10(app, qtbot):
 
     assert app.min_input.text() == "0"
     assert app.max_input.text() == "10"    
-    assert app.msg.text() == "Error evaluating expression: math.log10() takes exactly one argument (0 given)"
+    assert app.msg.text() == "Error evaluating expression: log10() missing 1 required positional argument: 'x'"
+
+def test_wrong_formula_input_negative_log10(app, qtbot):
+    app.min_input.setText("-5")
+    app.max_input.setText("10")
+    app.formula_input.setText("x^2 + log10(x)")
+    qtbot.mouseClick(app.findChild(QPushButton, "startButton"), Qt.LeftButton)
+
+    assert app.min_input.text() == "-5"
+    assert app.max_input.text() == "10"    
+    assert app.msg.text() == "Error evaluating expression: Negative values not allowed in log10 function"
 
 def test_wrong_formula_input_misspelt_sqrt(app, qtbot):
     app.min_input.setText("1")
@@ -82,6 +92,26 @@ def test_wrong_formula_input_misspelt_sqrt(app, qtbot):
     assert app.min_input.text() == "1"
     assert app.max_input.text() == "10"   
     assert app.msg.text() == "Error evaluating expression: name 'sqr' is not defined"
+
+def test_wrong_formula_input_negative_sqrt(app, qtbot):
+    app.min_input.setText("-5")
+    app.max_input.setText("-2")
+    app.formula_input.setText("sqrt(x)")
+    qtbot.mouseClick(app.findChild(QPushButton, "startButton"), Qt.LeftButton)
+
+    assert app.min_input.text() == "-5"
+    assert app.max_input.text() == "-2"   
+    assert app.msg.text() == "Error evaluating expression: Negative values not allowed in sqrt function"
+
+def test_wrong_formula_input_2_arguments_sqrt(app, qtbot):
+    app.min_input.setText("2")
+    app.max_input.setText("9")
+    app.formula_input.setText("sqrt(x,2)")
+    qtbot.mouseClick(app.findChild(QPushButton, "startButton"), Qt.LeftButton)
+
+    assert app.min_input.text() == "2"
+    assert app.max_input.text() == "9"   
+    assert app.msg.text() == "Error evaluating expression: sqrt() takes 1 positional argument but 2 were given"
 
 def test_wrong_formula_input_empty(app, qtbot):
     app.min_input.setText("1")
